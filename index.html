@@ -202,11 +202,11 @@
         <fieldset>
           <legend>Experience (tick any that apply)</legend>
           <div class="checks">
-            <label><input type="checkbox" name="Experience" value="Soldering"> Soldering</label>
-            <label><input type="checkbox" name="Experience" value="Music production"> Music production</label>
-            <label><input type="checkbox" name="Experience" value="Misc. audio projects"> Misc. audio projects</label>
-            <label><input type="checkbox" name="Experience" value="DJing"> DJing</label>
             <label><input type="checkbox" name="Experience" value="Synth/FX pedal design"> Synth/FX pedal design</label>
+            <label><input type="checkbox" name="Experience" value="Music production"> Music production</label>
+            <label><input type="checkbox" name="Experience" value="DJing"> DJing</label>
+            <label><input type="checkbox" name="Experience" value="Soldering"> Soldering</label>
+            <label><input type="checkbox" name="Experience" value="Misc. audio projects"> Misc. audio projects</label>
             <label><input type="checkbox" name="Experience" value="None yet"> None yet — keen to learn</label>
           </div>
         </fieldset>
@@ -222,7 +222,7 @@
         <textarea id="events" name="Event ideas"></textarea>
       </div>
 
-      <button type="submit" id="submitBtn">Sign up</button>
+      <button type="submit" id="submitBtn">Apply</button>
       <div class="status" id="status"></div>
     </form>
 
@@ -328,7 +328,7 @@
       status.textContent = 'Something went wrong — please try again.';
       status.classList.add('error');
       btn.disabled = false;
-      btn.textContent = 'Sign up';
+      btn.textContent = 'Apply';
     }
   });
 </script>
