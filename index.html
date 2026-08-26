@@ -42,47 +42,24 @@
   }
   header{
     color:var(--cream);
-    padding:2.5rem 1.5rem;
-    position:relative;
-    overflow:hidden;
-    min-height:210px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  header .wave-bg{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    display:block;
-  }
-  header .content{
-    position:relative;
-    z-index:1;
-    text-align:center;
+    padding:2.25rem 1.5rem 1.5rem;
     display:flex;
     flex-direction:column;
     align-items:center;
+    text-align:center;
   }
-  header h1{
-    margin:0;
-    font-size:3rem;
-    font-weight:800;
-    letter-spacing:-0.02em;
-    line-height:0.95;
-    -webkit-text-stroke:1.25px var(--dark);
-    text-shadow:0 4px 14px rgba(0,0,0,.55);
+  header .logo{
+    width:55%;
+    max-width:230px;
+    height:auto;
+    display:block;
   }
   header p{
-    margin:.75rem 0 0;
+    margin:1.1rem 0 0;
     font-size:.85rem;
     font-weight:700;
-    letter-spacing:.02em;
+    letter-spacing:.04em;
     text-transform:uppercase;
-    background:var(--dark);
-    padding:.35rem .8rem;
-    border-radius:6px;
   }
   main{padding:1.75rem 1.5rem 2.5rem;}
   .field{margin-bottom:1.5rem;}
@@ -187,11 +164,8 @@
 <body>
 <div class="page">
   <header>
-    <svg class="wave-bg" id="waveBg" viewBox="0 0 200 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"></svg>
-    <div class="content">
-      <h1>GUAES</h1>
-      <p>Contributor Application Form</p>
-    </div>
+    <img class="logo" src="logo.png" alt="GUAES">
+    <p>Contributor Application Form</p>
   </header>
 
   <main>
@@ -257,52 +231,6 @@
 </div>
 
 <script>
-  // Draws the waveform backdrop: a higher-frequency sine envelope run through
-  // a sample-and-hold + amplitude quantizer, like a bitcrushed audio signal —
-  // a nod to GUAES's audio electronics, and an abstraction of the logo's
-  // vertical-line waveform rather than a literal copy.
-  (function drawWave() {
-    const svg = document.getElementById('waveBg');
-    const NS = 'http://www.w3.org/2000/svg';
-    const W = 200, H = 90, CENTER = H / 2;
-    const BARS = 130;
-    const barW = (W / BARS) * 0.62;
-    const CYCLES = 6;       // sine cycles across the width — starts/ends at 0
-    const AMP = 41;         // peak half-height, in viewBox units
-    const MIN_H = 2.5;      // never fully pinch to zero at the nodes
-    const HOLD = 3;         // bars per sample-and-hold step (sample-rate reduction)
-    const BIT_LEVELS = 5;   // discrete amplitude steps (bit-depth reduction)
-
-    function hash(i) {
-      const s = Math.sin(i * 12.9898) * 43758.5453;
-      return s - Math.floor(s);
-    }
-
-    const frag = document.createDocumentFragment();
-    for (let i = 0; i < BARS; i++) {
-      // sample-and-hold: quantize which t a whole block of bars reads
-      const blockIndex = Math.floor(i / HOLD);
-      const holdT = (blockIndex * HOLD) / (BARS - 1);
-
-      const raw = Math.abs(Math.sin(holdT * CYCLES * Math.PI * 2));
-      const level = Math.round(raw * BIT_LEVELS) / BIT_LEVELS; // bit-depth reduction
-      const half = Math.max(level * AMP, MIN_H);
-
-      const t = i / (BARS - 1);
-      const x = t * W;
-
-      const rect = document.createElementNS(NS, 'rect');
-      rect.setAttribute('x', (x - barW / 2).toFixed(2));
-      rect.setAttribute('y', (CENTER - half).toFixed(2));
-      rect.setAttribute('width', barW.toFixed(2));
-      rect.setAttribute('height', (half * 2).toFixed(2));
-      rect.setAttribute('fill', '#f6efd8');
-      rect.setAttribute('opacity', (0.72 + hash(blockIndex) * 0.23).toFixed(2));
-      frag.appendChild(rect);
-    }
-    svg.appendChild(frag);
-  })();
-
   // Replace with your Apps Script Web App /exec URL — see SETUP.md
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwg3U3QCps_pgaEDHlVw-56snyrTSYTfentDq7qbBAHXCZVig7CHACLJIDX1o_wI7_FJA/exec";
 
