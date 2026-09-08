@@ -1,6 +1,11 @@
-# GUAES sign-up form — setup
+# GUAES sign-up site — setup
 
-Three files: `index.html` (the form — named `index.html` so GitHub Pages serves it at the repo's root URL), `apps-script.gs` (writes responses into a Google Sheet, free, no server needed), and this guide.
+Five files:
+- `index.html` — landing page: "Choose your path" (Member / Contributor)
+- `member.html` — links to SRC sign-up + Discord
+- `contribute.html` — the contributor application form
+- `apps-script.gs` — writes contributor form responses into a Google Sheet, free, no server needed
+- `logo-v2.png` — the GUAES logo image used in all three page headers
 
 ## 1. Create the response sheet
 1. Go to sheets.google.com > New spreadsheet. Name it e.g. "GUAES Sign Ups".
@@ -16,7 +21,7 @@ Three files: `index.html` (the form — named `index.html` so GitHub Pages serve
 5. Copy the **Web app URL** (ends in `/exec`).
 
 ## 3. Connect the form
-1. Open `index.html`, find the line:
+1. Open `contribute.html`, find the line:
    ```
    const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
    ```
@@ -30,12 +35,20 @@ This repo already has `index.html` at the root, so:
 4. Wait about a minute — the live URL appears at the top of the same Pages settings page, e.g. `https://mntindiw1.github.io/GUAES-freshers-signup/`.
 
 ## 5. Generate the QR code
-Any QR generator (e.g. qr-code-generator.com) pointed at that GitHub Pages URL. Test it on your phone before printing.
+Any QR generator (e.g. qr-code-generator.com) pointed at that GitHub Pages URL (the landing page). Test it on your phone before printing.
 
-## Updating the form later
-Edit `index.html`, commit, and push — GitHub Pages redeploys automatically within a minute or two. No changes needed on the Apps Script side unless you add/remove fields (in which case also update the `headers` array and field list in `apps-script.gs`).
+## How the pages link together
+- `index.html` → **Member** goes to `member.html`; **Contributor** goes to `contribute.html`.
+- `member.html` → both buttons open in a new tab: the SRC sign-up page and the Discord invite.
+- `contribute.html` → the form itself; on success, also shows a Discord link.
+- Each of `member.html` and `contribute.html` has a small "← Back" link to `index.html`.
+
+## Updating the site later
+Edit the relevant `.html` file, commit, and push — GitHub Pages redeploys automatically within a minute or two. If you add/remove fields on the contributor form, also update the `headers` array and field list in `apps-script.gs`.
+
+If you ever replace the logo image, give the new file a different filename (e.g. `logo-v3.png`) rather than overwriting `logo-v2.png`, and update the `src` in all three HTML files — reusing the same filename can leave browsers/GitHub's CDN showing a stale cached copy for a while.
 
 ## Notes
 - Responses land in the sheet in real time — anyone with edit access to the sheet can read them, export to CSV, filter, etc.
-- The form has a hidden honeypot field for basic spam filtering.
-- Font requested was Neue Haas Grotesk — it's a commercial font not available via free web font services, so the CSS falls back to Helvetica/Arial, which are visually close. If GUAES has a licensed webfont file (`.woff2`), it can be added via `@font-face` in `index.html`.
+- The contributor form has a hidden honeypot field for basic spam filtering.
+- Font requested was Neue Haas Grotesk — it's a commercial font not available via free web font services, so the CSS falls back to Helvetica/Arial, which are visually close. If GUAES has a licensed webfont file (`.woff2`), it can be added via `@font-face` in each page.

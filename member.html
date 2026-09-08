@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUAES Member Sign Up</title>
+<style>
+  :root{
+    --maroon:#4a0e0e;
+    --dark:#630704;
+    --cream:#f6efd8;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    background:var(--dark);
+    color:var(--cream);
+    font-family:"Neue Haas Grotesk Display","Neue Haas Grotesk Text",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:1.5rem 1rem;
+    overflow-x:hidden;
+  }
+  .page{
+    width:100%;
+    max-width:480px;
+  }
+  .back-link{
+    display:inline-block;
+    margin:1.25rem 0 0 1.5rem;
+    color:var(--cream);
+    opacity:.7;
+    text-decoration:none;
+    font-size:.85rem;
+    font-weight:700;
+  }
+  header{
+    color:var(--cream);
+    padding:1.5rem 1.5rem 1.5rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+  header .logo{
+    width:68%;
+    max-width:280px;
+    height:auto;
+    display:block;
+  }
+  header p{
+    margin:1.1rem 0 0;
+    font-size:.85rem;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    background:var(--dark);
+    padding:.35rem .8rem;
+    border-radius:6px;
+  }
+  main{padding:.5rem 1.5rem 2.5rem;text-align:center;}
+  main p{
+    font-size:.95rem;
+    opacity:.85;
+    margin:0 0 1.75rem;
+  }
+  .btn{
+    display:block;
+    width:100%;
+    background:var(--cream);
+    color:var(--dark);
+    border:none;
+    border-radius:6px;
+    padding:.9rem;
+    font-size:1.05rem;
+    font-weight:700;
+    font-family:inherit;
+    text-decoration:none;
+    letter-spacing:.01em;
+    margin-bottom:1rem;
+  }
+  .btn.secondary{
+    background:transparent;
+    color:var(--cream);
+    border:2px solid var(--cream);
+    padding:calc(.9rem - 2px);
+  }
+  footer{
+    text-align:center;
+    font-size:.75rem;
+    opacity:.55;
+    padding:0 1.5rem 2rem;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back-link" href="index.html">&larr; Back</a>
+  <header>
+    <img class="logo" src="logo-v2.png" alt="GUAES">
+    <p>Member Sign Up</p>
+  </header>
+
+  <main>
+    <p>Membership is free through the university's Students' Representative Council. Sign up there, then join our Discord to get involved.</p>
+    <a class="btn" href="https://www.glasgowunisrc.org/organisation/audioelectronics/" target="_blank" rel="noopener">Sign up on the SRC</a>
+    <a class="btn secondary" href="https://discord.gg/zP8eFg79cD" target="_blank" rel="noopener">Join our Discord</a>
+  </main>
+
+  <footer>Glasgow University Audio Electronics Society</footer>
+</div>
+</body>
+</html>

@@ -3,19 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GUAES Sign Up</title>
+<title>GUAES</title>
 <style>
-  /*
-    ---------------------------------------------------------------
-    SETUP (do this once — see SETUP.md for full step-by-step):
-    1. Create a Google Sheet for responses.
-    2. Extensions > Apps Script, paste apps-script.gs, deploy as
-       Web App ("Anyone" can access), copy the /exec URL.
-    3. Paste that URL into SCRIPT_URL below.
-    4. Host this file anywhere (GitHub Pages, Google Sites, Netlify)
-       and point your QR code at that URL.
-    ---------------------------------------------------------------
-  */
   :root{
     --maroon:#4a0e0e;
     --dark:#630704;
@@ -54,102 +43,48 @@
     height:auto;
     display:block;
   }
-  header p{
-    margin:1.1rem 0 0;
-    font-size:.85rem;
-    font-weight:700;
-    letter-spacing:.04em;
-    text-transform:uppercase;
+  main{padding:.5rem 1.5rem 2.5rem;}
+  h1{
+    text-align:center;
+    font-size:1.5rem;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    margin:0 0 1.5rem;
   }
-  main{padding:1.75rem 1.5rem 2.5rem;}
-  .field{margin-bottom:1.5rem;}
-  label{
+  .choices{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+  }
+  .choice{
     display:block;
-    font-weight:700;
-    font-size:.95rem;
-    margin-bottom:.4rem;
-  }
-  .hint{
-    font-size:.78rem;
-    opacity:.65;
-    margin:-.25rem 0 .5rem;
-  }
-  input[type="text"],
-  input[type="email"],
-  textarea,
-  select{
-    width:100%;
     border:2px solid var(--cream);
-    background:transparent;
-    color:var(--cream);
     border-radius:6px;
-    padding:.65rem .75rem;
-    font-size:1rem;
-    font-family:inherit;
-  }
-  textarea{resize:vertical;min-height:4.5rem;}
-  input::placeholder,textarea::placeholder{color:var(--cream);opacity:.45;}
-  .checks{
-    display:flex;
-    flex-wrap:wrap;
-    gap:.5rem;
-  }
-  .checks label{
-    display:flex;
-    align-items:center;
-    gap:.4rem;
-    font-weight:500;
-    font-size:.9rem;
-    border:2px solid var(--cream);
-    border-radius:20px;
-    padding:.4rem .8rem;
-    cursor:pointer;
-    margin:0;
-  }
-  .checks input{accent-color:var(--cream);}
-  fieldset{border:none;padding:0;margin:0;}
-  legend{
-    font-weight:700;
-    font-size:.95rem;
-    margin-bottom:.5rem;
-    padding:0;
-  }
-  button{
-    width:100%;
-    background:var(--cream);
-    color:var(--dark);
-    border:none;
-    border-radius:6px;
-    padding:.9rem;
-    font-size:1.05rem;
-    font-weight:700;
-    font-family:inherit;
-    cursor:pointer;
-    letter-spacing:.01em;
-  }
-  button:disabled{opacity:.6;cursor:default;}
-  .status{
-    margin-top:1rem;
-    font-size:.9rem;
-    text-align:center;
-    min-height:1.2em;
-  }
-  .status.error{color:#ff9b9b;}
-  .success{
-    text-align:center;
-    padding:3rem 1.5rem;
-  }
-  .success h2{font-size:1.6rem;margin-bottom:.5rem;}
-  .discord-btn{
-    display:inline-block;
-    margin-top:1.5rem;
-    background:var(--cream);
-    color:var(--dark);
+    padding:1.25rem 1.5rem;
     text-decoration:none;
-    font-weight:700;
-    border-radius:6px;
-    padding:.75rem 1.5rem;
-    letter-spacing:.01em;
+    color:var(--cream);
+    transition:background .15s ease, color .15s ease;
+  }
+  .choice:hover,
+  .choice:active{
+    background:var(--cream);
+    color:var(--dark);
+  }
+  .choice .title{
+    display:block;
+    font-size:1.3rem;
+    font-weight:800;
+    letter-spacing:-0.01em;
+  }
+  .choice .desc{
+    display:block;
+    margin-top:.3rem;
+    font-size:.9rem;
+    opacity:.8;
+  }
+  .choice:hover .desc,
+  .choice:active .desc{
+    opacity:.75;
   }
   footer{
     text-align:center;
@@ -157,129 +92,29 @@
     opacity:.55;
     padding:0 1.5rem 2rem;
   }
-  /* honeypot */
-  .hp{position:absolute;left:-9999px;top:-9999px;}
 </style>
 </head>
 <body>
 <div class="page">
   <header>
     <img class="logo" src="logo-v2.png" alt="GUAES">
-    <p>Contributor Application Form</p>
   </header>
 
   <main>
-    <form id="signupForm">
-      <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off">
-
-      <div class="field">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="Name" required autocomplete="name">
-      </div>
-
-      <div class="field">
-        <label for="email">Student email</label>
-        <input type="email" id="email" name="Email" required autocomplete="email" placeholder="you@student.gla.ac.uk">
-      </div>
-
-      <div class="field">
-        <label for="yearcourse">Year of study & course</label>
-        <input type="text" id="yearcourse" name="Year of study & course" placeholder="e.g. 2nd year, Electronics & Electrical Engineering">
-      </div>
-
-      <div class="field">
-        <label for="genre">Favourite genre</label>
-        <input type="text" id="genre" name="Favourite genre" placeholder="e.g. IDM, electronica, jazz">
-      </div>
-
-      <div class="field">
-        <fieldset>
-          <legend>Experience (tick any that apply)</legend>
-          <div class="checks">
-            <label><input type="checkbox" name="Experience" value="Synth/FX pedal design"> Synth/FX pedal design</label>
-            <label><input type="checkbox" name="Experience" value="Music production"> Music production</label>
-            <label><input type="checkbox" name="Experience" value="DJing"> DJing</label>
-            <label><input type="checkbox" name="Experience" value="Soldering"> Soldering</label>
-            <label><input type="checkbox" name="Experience" value="Misc. audio projects"> Misc. audio projects</label>
-            <label><input type="checkbox" name="Experience" value="None yet"> None yet — keen to learn</label>
-          </div>
-        </fieldset>
-      </div>
-
-      <div class="field">
-        <label for="contribute">What would you like to contribute?</label>
-        <textarea id="contribute" name="Contribution"></textarea>
-      </div>
-
-      <div class="field">
-        <label for="events">What events would you like us to run?</label>
-        <textarea id="events" name="Event ideas"></textarea>
-      </div>
-
-      <button type="submit" id="submitBtn">Apply</button>
-      <div class="status" id="status"></div>
-    </form>
-
-    <div class="success" id="successMsg" style="display:none;">
-      <h2>Nice one!</h2>
-      <p>We'll be in touch.</p>
-      <a class="discord-btn" href="https://discord.gg/zP8eFg79cD" target="_blank" rel="noopener">Join our Discord</a>
+    <h1>Choose your path</h1>
+    <div class="choices">
+      <a class="choice" href="member.html">
+        <span class="title">Member</span>
+        <span class="desc">Join GUAES for free via the SRC, and hop into our Discord</span>
+      </a>
+      <a class="choice" href="contribute.html">
+        <span class="title">Contributor</span>
+        <span class="desc">Apply to help run events, projects and more</span>
+      </a>
     </div>
   </main>
 
-  <footer>Your info is only used to contact you about the society</footer>
+  <footer>Glasgow University Audio Electronics Society</footer>
 </div>
-
-<script>
-  // Replace with your Apps Script Web App /exec URL — see SETUP.md
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwg3U3QCps_pgaEDHlVw-56snyrTSYTfentDq7qbBAHXCZVig7CHACLJIDX1o_wI7_FJA/exec";
-
-  const form = document.getElementById('signupForm');
-  const status = document.getElementById('status');
-  const btn = document.getElementById('submitBtn');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    if (form._gotcha.value) return; // honeypot tripped, silently drop
-
-    if (SCRIPT_URL.includes('PASTE_YOUR')) {
-      status.textContent = 'Form not connected yet — set SCRIPT_URL in signup.html.';
-      status.classList.add('error');
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-    status.textContent = '';
-    status.classList.remove('error');
-
-    const formData = new FormData(form);
-    // collapse repeated "Experience" checkboxes into one comma-separated field
-    const experience = formData.getAll('Experience').join(', ');
-    const payload = new URLSearchParams();
-    for (const [key, value] of formData.entries()) {
-      if (key === 'Experience' || key === '_gotcha') continue;
-      payload.append(key, value);
-    }
-    payload.append('Experience', experience);
-    payload.append('Submitted', new Date().toISOString());
-
-    try {
-      await fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors', // Apps Script doesn't return CORS headers; we can't read
-        body: payload    // the response, so we just assume success if no network error
-      });
-      form.style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
-    } catch (err) {
-      status.textContent = 'Something went wrong — please try again.';
-      status.classList.add('error');
-      btn.disabled = false;
-      btn.textContent = 'Apply';
-    }
-  });
-</script>
 </body>
 </html>
