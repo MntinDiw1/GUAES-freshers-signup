@@ -4,7 +4,7 @@ Five files:
 - `index.html` — landing page: "Choose your path" (Member / Contributor)
 - `member.html` — links to SRC sign-up + Discord
 - `contribute.html` — the contributor application form
-- `apps-script.gs` — writes contributor form responses into a Google Sheet, free, no server needed
+- `apps-script.gs` — writes contributor form responses into a Google Sheet and optionally emails you on each submission, free, no server needed
 - `logo-v2.png` — the GUAES logo image used in all three page headers
 
 ## 1. Create the response sheet
@@ -26,6 +26,18 @@ Five files:
    const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
    ```
 2. Replace with the URL you copied, commit, and push.
+
+## 3.5. Turn on email notifications (optional)
+Get an email every time someone submits the contributor form:
+1. Back in the Apps Script editor, find the line near the top:
+   ```
+   var NOTIFY_EMAIL = "PASTE_YOUR_EMAIL_HERE";
+   ```
+2. Replace with the email address that should get notified (can be any address, not just your Google account).
+3. **Deploy > Manage deployments > pencil icon > Version: New version > Deploy.** This updates the existing `/exec` URL, so nothing changes on the form side.
+4. The next submission triggers a re-authorization prompt for the new "send email" permission — approve it the same way as before (Advanced > Go to project).
+
+To turn notifications off later, set `NOTIFY_EMAIL` back to `""` and redeploy.
 
 ## 4. Turn on GitHub Pages
 This repo already has `index.html` at the root, so:
@@ -50,5 +62,7 @@ If you ever replace the logo image, give the new file a different filename (e.g.
 
 ## Notes
 - Responses land in the sheet in real time — anyone with edit access to the sheet can read them, export to CSV, filter, etc.
+- Email notifications only fire for the contributor form (`contribute.html`) — `member.html` is just links, nothing to submit there.
+- MailApp (the notification email) has a daily quota — 100 emails/day on a plain Gmail account, higher on a university Workspace account. Miles beyond what a freshers signup form will hit.
 - The contributor form has a hidden honeypot field for basic spam filtering.
 - Font requested was Neue Haas Grotesk — it's a commercial font not available via free web font services, so the CSS falls back to Helvetica/Arial, which are visually close. If GUAES has a licensed webfont file (`.woff2`), it can be added via `@font-face` in each page.
