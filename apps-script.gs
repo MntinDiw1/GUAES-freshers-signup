@@ -9,7 +9,7 @@ function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var params = e.parameter;
 
-  var headers = ["Submitted", "Name", "Email", "Year of study & course", "Favourite genre", "Experience", "Contribution", "Event ideas"];
+  var headers = ["Submitted", "Name", "Email", "Year of study & course", "Favourite genre", "Experience", "Other experience", "Contribution", "Event ideas"];
 
   // Write header row once, if the sheet is empty
   if (sheet.getLastRow() === 0) {
@@ -23,6 +23,7 @@ function doPost(e) {
     "Year of study & course": params["Year of study & course"] || "",
     "Favourite genre": params["Favourite genre"] || "",
     Experience: params["Experience"] || "",
+    "Other experience": params["Other experience"] || "",
     Contribution: params["Contribution"] || "",
     "Event ideas": params["Event ideas"] || ""
   };
@@ -45,6 +46,7 @@ function notifyNewApplication(row) {
     "Year of study & course: " + row["Year of study & course"] + "\n" +
     "Favourite genre: " + row["Favourite genre"] + "\n" +
     "Experience: " + row.Experience + "\n" +
+    "Other experience: " + row["Other experience"] + "\n" +
     "Contribution: " + row.Contribution + "\n" +
     "Event ideas: " + row["Event ideas"] + "\n\n" +
     "Full sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl();
